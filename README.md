@@ -1,15 +1,22 @@
-# MLflow Databricks Unity Catalog tools - WIP
+# MLflow Databricks Unity Catalog tools
 
-Databricks ML Unity Catalog utilties.
+#### Overview
+
+Tools for the Databricks Unity Catalog Model Registry:
 * Migrate models from Workspace Model Registry to Unity Catalog Model Registry
-* Display and view Unity Catalog models
+* Display and manipulate Unity Catalog models
 
-### Databricks Notebooks
+#### Databricks Notebooks
 *  [README](notebooks/_README)
-* [List_Models](notebooks/List_Models)
+* [Register_Model](notebooks/Register_Model) - Register a new model - create new model version.
+* [List_Registered_Models](notebooks/List_Registered_Models) - List registered models.
+* [List_Models_Versions](notebooks/List_Models_Versions) - List model versions of a registered model.
+* [Get_Models_Version](notebooks/Get_Models_Version) - Get model version, its run and MLflow model.
 
-### Databricks Documentation
+#### Databricks Documentation
 
 * Manage model lifecycle in Unity Catalog - [AWS](https://docs.databricks.com/machine-learning/manage-model-lifecycle/index.html) - [Azure](https://learn.microsoft.com/en-us/azure/databricks/machine-learning/manage-model-lifecycle/)
 * Upgrade ML workflows and models to Unity Catalog - [AWS](https://docs.databricks.com/machine-learning/manage-model-lifecycle/upgrade-to-uc/index.html) - [Azure](https://learn.microsoft.com/en-us/azure/databricks/machine-learning/manage-model-lifecycle/upgrade-to-uc/)
 * Upgrade ML workflows to target models in Unity Catalog - [AWS](https://docs.databricks.com/machine-learning/manage-model-lifecycle/upgrade-to-uc/upgrade-workflows.html) - [Azure](https://learn.microsoft.com/en-us/azure/databricks/machine-learning/manage-model-lifecycle/upgrade-to-uc/upgrade-workflows)
+
+Last updated: 2023-07-16
