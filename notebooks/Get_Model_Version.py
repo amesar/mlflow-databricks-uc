@@ -51,7 +51,31 @@ dump_obj(run.info, "Run Info")
 
 # COMMAND ----------
 
-# MAGIC %md #### Get MLflow model
+# MAGIC %md #### Get MLflow model metdata - `MLmodel` artifact aka `ModelInfo`
+# MAGIC
+# MAGIC Two ways:
+# MAGIC 1. Get `MLmodel` artifact - more human-readable result
+# MAGIC 2. Call `mlflow.models.get_model_info()` - less human-readable result
+
+# COMMAND ----------
+
+# MAGIC %md ##### 1. Get `MLmodel` artifact - more human-readable result
+
+# COMMAND ----------
+
+mlmodel = get_MLmodel_artifact(version.source)
+
+# COMMAND ----------
+
+dump_keys(mlmodel, "MLModel")
+
+# COMMAND ----------
+
+mlmodel
+
+# COMMAND ----------
+
+# MAGIC %md ##### 2. Call `mlflow.models.get_model_info()` - less human-readable result
 
 # COMMAND ----------
 
@@ -62,6 +86,10 @@ model_uri
 
 model_info = mlflow.models.get_model_info(model_uri)
 model_info
+
+# COMMAND ----------
+
+dump_keys(model_info.__dict__, "ModelInfo")
 
 # COMMAND ----------
 

@@ -47,6 +47,29 @@ def dump_obj(obj, title="Object"):
     for k,v in obj.__dict__.items():
         print(f"  {k[1:]}: {v}")
 
+def dump_dct(dct, title="Dict"):
+    print(f"{title}:")
+    for k,v in dct.items():
+        print(f"  {k}: {v}")
+
+def dump_keys(dct, title="Dict"):
+    print(f"{title}:")
+    for k in dct.keys():
+        print(f"  {k}")
+
 def dump_json(dct, sort_keys=None):
     import json
     print(json.dumps(dct, sort_keys=sort_keys, indent=2))
+
+# COMMAND ----------
+
+import yaml
+from mlflow.utils.file_utils import TempDir
+from mlflow.artifacts import download_artifacts
+
+def get_MLmodel_artifact(model_uri, artifact_path="MLmodel"):
+    with TempDir() as tmp:
+        artifact_uri = f"{model_uri}/{artifact_path}"
+        local_path = download_artifacts(artifact_uri=artifact_uri, dst_path=tmp.path())
+        with open(local_path, "r", encoding="utf-8") as f:
+            return yaml.safe_load(f)
