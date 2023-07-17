@@ -7,11 +7,11 @@ Tools for the Databricks Unity Catalog Model Registry:
 * Display and manipulate Unity Catalog models
 
 #### Databricks Notebooks
-*  [README](notebooks/_README)
-* [Register_Model](notebooks/Register_Model) - Register a new model - create new model version.
-* [List_Registered_Models](notebooks/List_Registered_Models) - List registered models.
-* [List_Models_Versions](notebooks/List_Models_Versions) - List model versions of a registered model.
-* [Get_Models_Version](notebooks/Get_Models_Version) - Get model version, its run and MLflow model.
+*  [README](notebooks/_README.py)
+* [Register_Model](notebooks/Register_Model.py) - Register a new model - create new model version.
+* [List_Registered_Models](notebooks/List_Registered_Models.py) - List registered models.
+* [List_Models_Versions](notebooks/List_Models_Versions.py) - List model versions of a registered model.
+* [Get_Model_Version](notebooks/Get_Model_Version.py) - Get model version, its run and MLflow model.
 
 #### Databricks Documentation
 
