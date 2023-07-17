@@ -39,7 +39,7 @@ def assert_widget(value, name):
 def dump_obj(obj, title="Object"):
     print(f"{title}:")
     for k,v in obj.__dict__.items():
-        print(f"  {k}: {v}")
+        print(f"  {k[1:]}: {v}")
 
 def dump_json(dct, sort_keys=None):
     import json

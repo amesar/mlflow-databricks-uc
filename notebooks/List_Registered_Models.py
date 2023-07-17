@@ -55,7 +55,7 @@ len(models)
 
 # COMMAND ----------
 
-models = sorted(models, key=lambda m: map.name)
+models = sorted(models, key=lambda m: m.name)
 
 # COMMAND ----------
 
@@ -65,4 +65,4 @@ for m in models:
 # COMMAND ----------
 
 for m in models:
-    dump_obj(m,"Model")
+    dump_obj(m,"Registered Model")
