@@ -11,7 +11,7 @@ client = non_uc_client
 # COMMAND ----------
 
 def show_clients():
-    print("mlflow.get_registry_uri:", mlflow.get_registry_uri())
+    print("mlflow.registry_uri:", mlflow.get_registry_uri())
     print("non_uc_client:", non_uc_client._registry_uri)
     print("uc_client:    ", uc_client._registry_uri)
     print("client:       ", client._registry_uri)
@@ -21,8 +21,14 @@ show_clients()
 
 def use_unity_catalog(use_uc):
     global client
-    client = uc_client if use_uc else non_uc_client
-    print("New client:", client._registry_uri)
+    if use_uc:
+        client = uc_client
+        mlflow.set_registry_uri("databricks-uc")
+    else:
+        client = non_uc_client
+        mlflow.set_registry_uri("databricks")
+    print("New client.registry:    ", client._registry_uri)
+    print("New mlflow.registry.uri:", mlflow.get_registry_uri())
 
 # COMMAND ----------
 
