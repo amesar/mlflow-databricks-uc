@@ -19,8 +19,8 @@
 # MAGIC See more invocation examples: [Unity Catalog Registered Model Permissions](https://databricks.atlassian.net/wiki/spaces/UN/pages/1280411724/MLflow+FAQ#Unity-Catalog-Registered-Model-Permissions) Databricks wiki page.
 # MAGIC
 # MAGIC REST API
-# MAGIC * [2.1/unity-catalog/permissions](https://docs.databricks.com/api/workspace/grants/get) 
-# MAGIC * [2.1/unity-catalog/effective-permissions](https://docs.databricks.com/api/workspace/grants/geteffective)
+# MAGIC * [api/2.1/unity-catalog/permissions/{securable_type}/{full_name}](https://docs.databricks.com/api/workspace/grants/get)
+# MAGIC * [api/2.1/unity-catalog/effective-permissions/{securable_type}/{full_name}](https://docs.databricks.com/api/workspace/grants/geteffective)
 # MAGIC
 # MAGIC Python SDK
 # MAGIC * [GrantsAPI.get](https://databricks-sdk-py.readthedocs.io/en/latest/workspace/grants.html#GrantsAPI.get) 
