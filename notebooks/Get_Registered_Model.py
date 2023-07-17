@@ -1,7 +1,7 @@
 # Databricks notebook source
-# MAGIC %md ## List Model Versions
+# MAGIC %md ## Get Registered Model
 # MAGIC
-# MAGIC Search for version within one registered model.
+# MAGIC Get registered model and its versions.
 # MAGIC
 # MAGIC Widgets:
 # MAGIC * `Model name` - example: my_catalog.ml_models.sklearn_wine
@@ -22,7 +22,16 @@ print("model_name:", model_name)
 
 # COMMAND ----------
 
-# MAGIC %md #### Search for model versions
+# MAGIC %md #### Get registered model
+
+# COMMAND ----------
+
+model = client.get_registered_model(model_name)
+dump_obj(model, "Registered Model")
+
+# COMMAND ----------
+
+# MAGIC %md #### Get model versions
 
 # COMMAND ----------
 

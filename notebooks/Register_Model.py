@@ -20,10 +20,6 @@
 
 # COMMAND ----------
 
-#dbutils.widgets.removeAll()
-
-# COMMAND ----------
-
 dbutils.widgets.text("1. Source Run ID", "")
 run_id = dbutils.widgets.get("1. Source Run ID")
 
