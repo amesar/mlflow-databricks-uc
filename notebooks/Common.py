@@ -23,3 +23,28 @@ def use_unity_catalog(use_uc):
     global client
     client = uc_client if use_uc else non_uc_client
     print("New client:", client._registry_uri)
+
+# COMMAND ----------
+
+use_unity_catalog(True)
+
+# COMMAND ----------
+
+def assert_widget(value, name):
+    if len(value.rstrip())==0:
+        raise Exception(f"ERROR: '{name}' widget is required")
+
+# COMMAND ----------
+
+def dump_obj(obj, title="Object"):
+    print(f"{title}:")
+    for k,v in obj.__dict__.items():
+        print(f"  {k}: {v}")
+
+def dump_json(dct, sort_keys=None):
+    import json
+    print(json.dumps(dct, sort_keys=sort_keys, indent=2))
+
+# COMMAND ----------
+
+
