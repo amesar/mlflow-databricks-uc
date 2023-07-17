@@ -44,7 +44,3 @@ def dump_obj(obj, title="Object"):
 def dump_json(dct, sort_keys=None):
     import json
     print(json.dumps(dct, sort_keys=sort_keys, indent=2))
-
-# COMMAND ----------
-
-
