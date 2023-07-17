@@ -8,11 +8,12 @@
 # MAGIC * Display and manipulate Unity Catalog models.
 # MAGIC
 # MAGIC #### Notebooks
-# MAGIC * [Register_Model]($Register_Model) - Register a new modelversion from a run.
-# MAGIC * [List_Registered_Models]($List_Registered_Models) - List registered models.
+# MAGIC * [Register_Model]($Register_Model) - Register a new model version from a run.
+# MAGIC * [Copy_Model_Version]($Copy_Model_Version) - Creates a new model version from another model version.
 # MAGIC * [Get_Registered_Model]($Get_Registered_Model) - Get registered model and its versions.
 # MAGIC * [Get_Model_Version]($Get_Model_Version) - Get model version, its run and MLflow model.
 # MAGIC * [Get_Model_Permissions]($Get_Model_Permissions) - Get permissions of a registered model
+# MAGIC * [List_Registered_Models]($List_Registered_Models) - List registered models.
 # MAGIC * [Common]($Common) - Common utilities.
 # MAGIC
 # MAGIC Last updated: 2023-07-17
