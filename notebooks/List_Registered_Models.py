@@ -2,7 +2,7 @@
 # MAGIC %md ## List Registered Models
 # MAGIC
 # MAGIC Widgets:
-# MAGIC * `Model name` - filter by - "startswith"
+# MAGIC * `Model name` - filter by Python `startswith()`
 
 # COMMAND ----------
 
@@ -29,7 +29,7 @@ len(models)
 
 # COMMAND ----------
 
-# MAGIC %md #### Search with filter - non-UC only
+# MAGIC %md #### Search with filter - non-UC only. Can't use this anymore.
 # MAGIC
 # MAGIC MlflowException: Argument 'filter_string' is unsupported for models in the Unity Catalog. See the user guide for more information
 
