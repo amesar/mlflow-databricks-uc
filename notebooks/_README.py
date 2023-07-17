@@ -14,4 +14,4 @@
 # MAGIC * [Get_Model_Version]($Get_Model_Version) - Get model version, its run and MLflow model.
 # MAGIC * [Common]($Common) - Common utilities.
 # MAGIC
-# MAGIC Last updated: 2023-07-16
+# MAGIC Last updated: 2023-07-17
