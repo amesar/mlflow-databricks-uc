@@ -46,6 +46,10 @@ dump_obj(version, "Model Version")
 
 # COMMAND ----------
 
+display_model_version_uri(model_name, model_version)
+
+# COMMAND ----------
+
 # MAGIC %md #### Get run
 
 # COMMAND ----------

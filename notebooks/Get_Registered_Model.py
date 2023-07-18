@@ -35,6 +35,10 @@ dump_obj(model, "Registered Model")
 
 # COMMAND ----------
 
+display_registered_model_uri(model_name, model_version)
+
+# COMMAND ----------
+
 # MAGIC %md #### Get latest model versions - only non-UC
 # MAGIC Note: UC returns None for model.latest_versions not []
 
