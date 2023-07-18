@@ -20,6 +20,7 @@ Tools for Databricks Unity Catalog Model Registry:
 * [Get_Model_Version](notebooks/Get_Model_Version.py) - Get model version, its run and MLflow model.
 * [Get_Model_Permissions](notebooks/Get_Model_Permissions.py) - Get permissions of a registered model
 * [List_Registered_Models](notebooks/List_Registered_Models.py) - List registered models.
+* [Set_Tag](notebooks/Set_Tag.py) - Set tag of registered model or model version.
 
 #### Databricks Documentation
 
@@ -27,4 +28,4 @@ Tools for Databricks Unity Catalog Model Registry:
 * Upgrade ML workflows and models to Unity Catalog - [AWS](https://docs.databricks.com/machine-learning/manage-model-lifecycle/upgrade-to-uc/index.html) - [Azure](https://learn.microsoft.com/en-us/azure/databricks/machine-learning/manage-model-lifecycle/upgrade-to-uc/)
 * Upgrade ML workflows to target models in Unity Catalog - [AWS](https://docs.databricks.com/machine-learning/manage-model-lifecycle/upgrade-to-uc/upgrade-workflows.html) - [Azure](https://learn.microsoft.com/en-us/azure/databricks/machine-learning/manage-model-lifecycle/upgrade-to-uc/upgrade-workflows)
 
-Last updated: 2023-07-17
+Last updated: 2023-07-18
