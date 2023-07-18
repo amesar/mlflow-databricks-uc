@@ -6,6 +6,8 @@
 # MAGIC Tools for the Databricks Unity Catalog Model Registry:
 # MAGIC * Migrate models from Workspace Model Registry to Unity Catalog Model Registry.
 # MAGIC * Display and manipulate Unity Catalog models.
+# MAGIC * Most of these notebooks will accept either UC or non-UC models especially for model copying. 
+# MAGIC   * For example, you can copy a UC or non-UC model version to a target UC or non-UC model version.
 # MAGIC
 # MAGIC #### Notebooks
 # MAGIC * [Register_Model]($Register_Model) - Register a new model version from a run.

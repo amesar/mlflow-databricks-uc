@@ -3,39 +3,6 @@
 
 # COMMAND ----------
 
-import mlflow
-non_uc_client = mlflow.MlflowClient(registry_uri="databricks")
-uc_client = mlflow.MlflowClient(registry_uri="databricks-uc")
-client = non_uc_client
-
-# COMMAND ----------
-
-def show_clients():
-    print("mlflow.registry_uri:", mlflow.get_registry_uri())
-    print("non_uc_client:", non_uc_client._registry_uri)
-    print("uc_client:    ", uc_client._registry_uri)
-    print("client:       ", client._registry_uri)
-show_clients()
-
-# COMMAND ----------
-
-def use_unity_catalog(use_uc):
-    global client
-    if use_uc:
-        client = uc_client
-        mlflow.set_registry_uri("databricks-uc")
-    else:
-        client = non_uc_client
-        mlflow.set_registry_uri("databricks")
-    print("New client.registry:    ", client._registry_uri)
-    print("New mlflow.registry.uri:", mlflow.get_registry_uri())
-
-# COMMAND ----------
-
-use_unity_catalog(True)
-
-# COMMAND ----------
-
 def assert_widget(value, name):
     if len(value.rstrip())==0:
         raise Exception(f"ERROR: '{name}' widget is required")
@@ -73,3 +40,60 @@ def get_MLmodel_artifact(model_uri, artifact_path="MLmodel"):
         local_path = download_artifacts(artifact_uri=artifact_uri, dst_path=tmp.path())
         with open(local_path, "r", encoding="utf-8") as f:
             return yaml.safe_load(f)
+
+# COMMAND ----------
+
+from mlflow.exceptions import RestException
+
+def create_model_version(client,  model_name, source_uri, run_id=None):
+    try:
+       client.create_registered_model(model_name)
+    except RestException as e:
+       client.get_registered_model(model_name)
+    return client.create_model_version(model_name, source_uri, run_id=run_id)
+
+# COMMAND ----------
+
+# Client code
+
+# COMMAND ----------
+
+import mlflow
+_non_uc_client = mlflow.MlflowClient(registry_uri="databricks")
+_uc_client = mlflow.MlflowClient(registry_uri="databricks-uc")
+client = _non_uc_client
+
+# COMMAND ----------
+
+def is_unity_catalog(model_name):
+    return "." in model_name
+    
+def _get_client(model_name):
+    return _uc_client if is_unity_catalog(model_name) else _non_uc_client
+
+# COMMAND ----------
+
+def get_client_uc(use_uc):
+    client = _uc_client if use_uc else _non_uc_client
+    mlflow.set_registry_uri(client._registry_uri)
+    print("client.registry_uri:    ", client._registry_uri)
+    print("mlflow.get_registry_uri:", mlflow.get_registry_uri())
+    return client
+
+# COMMAND ----------
+
+def get_client(model_name):
+    client = _get_client(model_name)
+    mlflow.set_registry_uri(client._registry_uri)
+    print("client.registry_uri:   ", client._registry_uri)
+    print("mlflow.get_registry_uri:", mlflow.get_registry_uri())
+    return client
+
+# COMMAND ----------
+
+def get_clients(src_model_name, dst_model_name):
+    src_client = _get_client(src_model_name)
+    dst_client = _get_client(dst_model_name)
+    print("src_client.registry_uri:", src_client._registry_uri)
+    print("dst_client.registry_uri:", dst_client._registry_uri)
+    return src_client, dst_client

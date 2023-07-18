@@ -2,9 +2,11 @@
 
 #### Overview
 
-Tools for the Databricks Unity Catalog Model Registry:
-* Migrate models from Workspace Model Registry to Unity Catalog Model Registry
-* Display and manipulate Unity Catalog models
+Tools for Databricks Unity Catalog Model Registry:
+* Migrate models from Workspace Model Registry to Unity Catalog Model Registry.
+* Display and manipulate Unity Catalog models.
+* Most of these notebooks will accept either UC or non-UC models especially for model copying. 
+  * For example, you can copy a UC or non-UC model version to a target UC or non-UC model version.
 
 #### Note
 * This `README.md` is meant to be used outside a workspace. 

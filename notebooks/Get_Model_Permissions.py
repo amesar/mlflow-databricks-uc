@@ -1,7 +1,7 @@
 # Databricks notebook source
 # MAGIC %md ## Get Model Permissions
 # MAGIC
-# MAGIC Get registered model permissions. 
+# MAGIC Get registered model permissions for Unity Catalog models.
 # MAGIC
 # MAGIC Since open-source MLflow does not have registered model permissions we need to use a Databricks Unity Catalog API.
 # MAGIC

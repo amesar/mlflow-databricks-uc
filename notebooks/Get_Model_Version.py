@@ -33,6 +33,10 @@ assert_widget(model_version, "Model version")
 
 # COMMAND ----------
 
+client = get_client(model_name)
+
+# COMMAND ----------
+
 # MAGIC %md #### Get model version
 
 # COMMAND ----------
