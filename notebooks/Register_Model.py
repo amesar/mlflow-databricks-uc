@@ -84,3 +84,7 @@ if alias:
 
 version = client.get_model_version(model_name, version.version)
 dump_obj(version)
+
+# COMMAND ----------
+
+display_model_version_uri(model_name, version.version)

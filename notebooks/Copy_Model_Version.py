@@ -114,3 +114,7 @@ for alias in aliases:
 
 dst_version = dst_client.get_model_version(dst_model_name, dst_version.version)
 dump_obj(dst_version)
+
+# COMMAND ----------
+
+display_model_version_uri(dst_model_name, dst_version.version)

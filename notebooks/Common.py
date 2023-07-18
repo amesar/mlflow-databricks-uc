@@ -97,3 +97,31 @@ def get_clients(src_model_name, dst_model_name):
     print("src_client.registry_uri:", src_client._registry_uri)
     print("dst_client.registry_uri:", dst_client._registry_uri)
     return src_client, dst_client
+
+# COMMAND ----------
+
+from mlflow.utils import databricks_utils
+_host_name = databricks_utils.get_browser_hostname()
+print("_host_name:", _host_name)
+
+# COMMAND ----------
+
+def display_registered_model_uri(model_name):
+    if _host_name:
+        if is_unity_catalog(model_name): # is unity catalog model
+            model_name = model_name.replace(".","/")
+            uri = f"https://{_host_name}/explore/data/models/{model_name}"
+        else:
+            uri = f"https://{_host_name}/#mlflow/models/{model_name}"
+        displayHTML("""<b>Registered Model:</b> <a href="{}">{}</a>""".format(uri,uri))
+
+# COMMAND ----------
+
+def display_model_version_uri(model_name, version):
+    if _host_name:
+        if is_unity_catalog(model_name): # is unity catalog model
+            model_name = model_name.replace(".","/")
+            uri = f"https://{_host_name}/explore/data/models/{model_name}/version/{version}"
+        else:
+            uri = f"https://{_host_name}/#mlflow/models/{model_name}/versions/{version}"
+        displayHTML("""<b>Model Version:</b> <a href="{}">{}</a>""".format(uri,uri))
