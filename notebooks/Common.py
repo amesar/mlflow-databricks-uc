@@ -11,18 +11,21 @@ def assert_widget(value, name):
 
 def dump_obj(obj, title="Object"):
     print(f"{title}:")
-    for k,v in obj.__dict__.items():
-        print(f"  {k[1:]}: {v}")
+    if obj:
+        for k,v in obj.__dict__.items():
+            print(f"  {k[1:]}: {v}")
 
 def dump_dct(dct, title="Dict"):
     print(f"{title}:")
-    for k,v in dct.items():
-        print(f"  {k}: {v}")
+    if  dct:
+        for k,v in dct.items():
+            print(f"  {k}: {v}")
 
 def dump_keys(dct, title="Dict"):
     print(f"{title}:")
-    for k in dct.keys():
-        print(f"  {k}")
+    if dct:
+        for k in dct.keys():
+            print(f"  {k}")
 
 def dump_json(dct, sort_keys=None):
     import json
