@@ -17,9 +17,9 @@ Tools for Databricks Unity Catalog Model Registry:
 [README](notebooks/_README.py)
 
 ##### Create Model Version notebooks
-* [Create_Model_Version_from_Run](notebooks/Create_Model_Version_from_Run.py) - Create a new model version from a run.
-* [Create_Model_Version_from_Version](notebooks/Create_Model_Version_from_Version.py) - Create a model version from another model version.
-* [Create_Model_Version_from_URI](notebooks/Create_Model_Version_from_URI.py) - Crate a model version from a model URI.
+* [Create_Model_Version_from_Run](notebooks/Create_Model_Version_from_Run.py) - Create a new model version from a run. This is the canonical way to register a new model (version) from a run's MLflow model.
+* [Create_Model_Version_from_Version](notebooks/Create_Model_Version_from_Version.py)- Create a model version from another model version. Copy a version in its entirety (model and version metadata) to another version.
+* [Create_Model_Version_from_URI](notebooks/Create_Model_Version_from_URI.py) - Create a model version from a model URI. Can be any model URI `models:/my-model/1`, `runs:/123` or other.
 
 ##### Other Notebooks
 * [Get_Registered_Model](notebooks/Get_Registered_Model.py) - Get registered model and its versions.
@@ -34,4 +34,4 @@ Tools for Databricks Unity Catalog Model Registry:
 * Upgrade ML workflows and models to Unity Catalog - [AWS](https://docs.databricks.com/machine-learning/manage-model-lifecycle/upgrade-to-uc/index.html) - [Azure](https://learn.microsoft.com/en-us/azure/databricks/machine-learning/manage-model-lifecycle/upgrade-to-uc/)
 * Upgrade ML workflows to target models in Unity Catalog - [AWS](https://docs.databricks.com/machine-learning/manage-model-lifecycle/upgrade-to-uc/upgrade-workflows.html) - [Azure](https://learn.microsoft.com/en-us/azure/databricks/machine-learning/manage-model-lifecycle/upgrade-to-uc/upgrade-workflows)
 
-Last updated: 2023-07-18
+Last updated: 2023-07-19

@@ -3,6 +3,7 @@
 # MAGIC
 # MAGIC **Overview**
 # MAGIC * Creates a new model version from another model version. 
+# MAGIC * Gets the model to copy from the version's run. Note that the run must exist.
 # MAGIC * Copies source version's metadata (description, tags and aliases) to target version.
 # MAGIC * Option to overwrite description or add a new alias.
 # MAGIC
