@@ -79,11 +79,24 @@ print("aliases:",aliases)
 
 # COMMAND ----------
 
-dst_version = create_model_version(dst_client, 
-    dst_model_name, 
-    src_version.source, 
-    src_version.run_id
-)
+# MAGIC %md **If run does not exist**
+# MAGIC
+# MAGIC error_code: INTERNAL_ERROR
+# MAGIC
+# MAGIC MlflowException: Model version creation failed for model name: Sklearn_Wine_test version: 16 with status: FAILED_REGISTRATION and message: Failed registration. The given source path `dbfs:/databricks/mlflow-tracking/e090757fcb8f49cb9822f65f2fe7ed91/3c0b2decc41c4dc0becd3d60bc814a4d/artifacts/model` does not exist.
+
+# COMMAND ----------
+
+try:
+    dst_version = create_model_version(dst_client, 
+        dst_model_name, 
+        src_version.source, 
+        src_version.run_id
+    )
+except mlflow.MlflowException as e: # Run doesn't exist
+    print(f"ERROR: error_code: {e.error_code}\n") # error_code: INTERNAL_ERROR
+    raise e
+
 dst_version
 
 # COMMAND ----------

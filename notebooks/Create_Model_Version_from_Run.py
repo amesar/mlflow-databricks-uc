@@ -52,7 +52,13 @@ client = get_client(model_name)
 
 # COMMAND ----------
 
-# MAGIC %md #### Register model - create new model version
+# MAGIC %md #### Register model - create new model version`
+
+# COMMAND ----------
+
+# MAGIC %md **If run does not exist:**
+# MAGIC
+# MAGIC RestException: RESOURCE_DOES_NOT_EXIST: Run '3c0b2decc41c4dc0becd3d60bc814a4d' not found.
 
 # COMMAND ----------
 
