@@ -13,9 +13,15 @@ Tools for Databricks Unity Catalog Model Registry:
 * If you are inside a workspace, use [notebooks/_README.py](notebooks/_README.py) in order for workspace links to work.
 
 #### Databricks Notebooks
-*  [README](notebooks/_README.py)
-* [Register_Model](notebooks/Register_Model.py) - Register a new model - create new model version.
-* [Copy_Model_Version](notebooks/Copy_Model_Version) - Creates a new model version from another model version.
+
+[README](notebooks/_README.py)
+
+##### Create Model Version notebooks
+* [Create_Model_Version_from_Run](notebooks/Create_Model_Version_from_Run.py) - Create a new model version from a run.
+* [Create_Model_Version_from_Version](notebooks/Create_Model_Version_from_Version.py) - Create a model version from another model version.
+* [Create_Model_Version_from_URI](notebooks/Create_Model_Version_from_URI.py) - Crate a model version from a model URI.
+
+##### Other Notebooks
 * [Get_Registered_Model](notebooks/Get_Registered_Model.py) - Get registered model and its versions.
 * [Get_Model_Version](notebooks/Get_Model_Version.py) - Get model version, its run and MLflow model.
 * [Get_Model_Permissions](notebooks/Get_Model_Permissions.py) - Get permissions of a registered model

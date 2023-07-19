@@ -5,7 +5,7 @@
 # MAGIC
 # MAGIC **Widgets**
 # MAGIC * `1. Registered Model` - required.
-# MAGIC * `2. Model Version` - if set model version tag is set. If not set, registeree model tag is set.
+# MAGIC * `2. Model Version` - if set, the model version tag is updated. If not set, registeree model tag is updated.
 # MAGIC * `3. Tag key`
 # MAGIC * `3. Tag value`
 

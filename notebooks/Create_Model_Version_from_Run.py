@@ -1,5 +1,5 @@
 # Databricks notebook source
-# MAGIC %md ## Register Model
+# MAGIC %md ## Create Model Version from Run
 # MAGIC
 # MAGIC Register a new model version from a run model.
 # MAGIC

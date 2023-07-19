@@ -1,5 +1,5 @@
 # Databricks notebook source
-# MAGIC %md ## Copy Registered Model Version
+# MAGIC %md ## Create Model Version from another Model Version
 # MAGIC
 # MAGIC **Overview**
 # MAGIC * Creates a new model version from another model version. 
