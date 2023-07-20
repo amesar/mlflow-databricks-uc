@@ -6,7 +6,6 @@
 # MAGIC * Gets the model to copy from the version's run. Note that the run must exist.
 # MAGIC * Copies source version's metadata (description, tags and aliases) to target version.
 # MAGIC * Option to overwrite description or add a new alias.
-# MAGIC * Option to register model with version's download URI if run fails. Experimental.
 # MAGIC
 # MAGIC **Widgets**
 # MAGIC * `1. Source model name` - example: `andre_catalog.ml_models.sklearn_wine`
@@ -14,7 +13,6 @@
 # MAGIC * `3. New model name` 
 # MAGIC * `4. Alias` - alias to append to source version aliases
 # MAGIC * `5. Description` - replace source version description if specified
-# MAGIC * `6. Recover from deleted run` - if the version's run is deleted, use the version's canonical registry copy of the model - experimental
 
 # COMMAND ----------
 
@@ -41,15 +39,11 @@ alias = dbutils.widgets.get("4. Alias")
 dbutils.widgets.text("5. Description", "")
 description = dbutils.widgets.get("5. Description")
 
-dbutils.widgets.dropdown("6. Recover from deleted run", "no", ["yes","no"])
-recover_from_deleted_run = dbutils.widgets.get("6. Recover from deleted run") == "yes"
-
 print("src_model_name:", src_model_name)
 print("src_model_version:", src_model_version)
 print("dst_model_name:", src_model_name)
 print("alias:", alias)
 print("description:", description)
-print("recover_from_deleted_run:", recover_from_deleted_run)
 
 # COMMAND ----------
 
@@ -99,13 +93,10 @@ try:
         src_version.source, 
         src_version.run_id
     )
-except mlflow.MlflowException as e: # Run doesn't exist. error_code: INTERNAL_ERROR
-    if recover_from_deleted_run:
-        print(f"WARNING: Run '{src_version.run_id}' does not exist. error_code: {e.error_code}\n") 
-        dst_version = register_with_version_download_uri(src_client, src_model_name, src_model_version)
-    else:
-        print(f"ERROR: Run '{src_version.run_id}' does not exist. error_code: {e.error_code}\n") 
-        raise e
+except mlflow.MlflowException as e: # Run doesn't exist
+    print(f"ERROR: error_code: {e.error_code}\n") # error_code: INTERNAL_ERROR
+    raise e
+
 dst_version
 
 # COMMAND ----------
