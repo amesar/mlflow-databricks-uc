@@ -3,6 +3,18 @@
 
 # COMMAND ----------
 
+import mlflow
+
+# COMMAND ----------
+
+def mk_dbfs_path(path):
+    return path.replace("/dbfs","dbfs:")
+
+def mk_local_path(path):
+    return path.replace("dbfs:","/dbfs")
+
+# COMMAND ----------
+
 def assert_widget(value, name):
     if len(value.rstrip())==0:
         raise Exception(f"ERROR: '{name}' widget is required")
@@ -61,7 +73,6 @@ def create_model_version(client,  model_name, source_uri, run_id=None):
 
 # COMMAND ----------
 
-import mlflow
 _non_uc_client = mlflow.MlflowClient(registry_uri="databricks")
 _uc_client = mlflow.MlflowClient(registry_uri="databricks-uc")
 client = _non_uc_client
@@ -88,7 +99,7 @@ def get_client_uc(use_uc):
 def get_client(model_name):
     client = _get_client(model_name)
     mlflow.set_registry_uri(client._registry_uri)
-    print("client.registry_uri:   ", client._registry_uri)
+    print("client.registry_uri:    ", client._registry_uri)
     print("mlflow.get_registry_uri:", mlflow.get_registry_uri())
     return client
 
@@ -128,3 +139,41 @@ def display_model_version_uri(model_name, version):
         else:
             uri = f"https://{_host_name}/#mlflow/models/{model_name}/versions/{version}"
         displayHTML("""<b>Model Version:</b> <a href="{}">{}</a>""".format(uri,uri))
+
+# COMMAND ----------
+
+# Experimental
+# Should work but fails.
+
+# MlflowException: Model version creation failed for model name: Sklearn_Wine_test version: 52 with status: FAILED_REGISTRATION and message: Failed registration. The given source path `dbfs:/databricks/mlflow-registry/3a5e115117914dd0bf09b85c4a4e48ad/models/sklearn-model` does not exist.
+
+def _register_with_version_download_uri(client, model_name, model_version):
+    artifact_uri = client.get_model_version_download_uri(model_name, model_version) 
+    return mlflow.register_model(artifact_uri, dst_model_name)
+
+# COMMAND ----------
+
+
+# Experimental
+"""
+Since we can't register using the value of model_version_download_uri (see above)
+jump through some hoops by:
+  1. Download the model to DBFS /tmp directory
+  2. Use this temp directory to register the model
+
+Caveats:
+  1. run_id will be not be set obviously
+  2. version "source" field will be invalid as it refers to temporary directory
+"""
+
+_tmp_download_dir = "/dbfs/tmp"
+
+def register_with_version_download_uri(client, model_name, model_version):
+    from distutils.dir_util import copy_tree
+    import tempfile
+    artifact_uri = client.get_model_version_download_uri(model_name, model_version) 
+    with tempfile.TemporaryDirectory(dir=_tmp_download_dir) as tmp_dir:
+        local_dir = download_artifacts(artifact_uri=artifact_uri, dst_path=tmp_dir)
+        copy_tree(local_dir, mk_local_path(tmp_dir))
+        print(f"Registering model '{dst_model_name}' again from version download URI '{artifact_uri}'")
+        return mlflow.register_model(mk_dbfs_path(tmp_dir), dst_model_name)

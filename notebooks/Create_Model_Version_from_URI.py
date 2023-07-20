@@ -55,6 +55,8 @@ dst_client = get_client(dst_model_name)
 # COMMAND ----------
 
 # MAGIC %md #### Register model - create new model version
+# MAGIC
+# MAGIC Uses [mlflow.register_model](https://mlflow.org/docs/latest/python_api/mlflow.html#mlflow.register_model).
 
 # COMMAND ----------
 
@@ -66,16 +68,11 @@ dst_client = get_client(dst_model_name)
 
 # COMMAND ----------
 
-# MAGIC %md **If run does not exist**
-# MAGIC
-# MAGIC error_code: INTERNAL_ERROR
-# MAGIC
-# MAGIC MlflowException: Unable to download model artifacts from source artifact location 'models:/Sklearn_WIne/1' in order to upload them to Unity Catalog. Please ensure the source artifact location exists and that you can download from it via mlflow.artifacts.download_artifacts()
-
-# COMMAND ----------
-
 try:
-    dst_version = mlflow.register_model(src_model_uri, dst_model_name)
+    dst_version = mlflow.register_model(
+        model_uri = src_model_uri, 
+        name = dst_model_name
+    )
 except mlflow.MlflowException as e: # Run doesn't exist
     print(f"ERROR: error_code: {e.error_code}\n") # error_code: INTERNAL_ERROR
     raise e
