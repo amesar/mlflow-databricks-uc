@@ -19,6 +19,7 @@ Tools for Databricks Unity Catalog Model Registry:
 ##### Create Model Version notebooks
 * [Create_Model_Version_from_Run](notebooks/Create_Model_Version_from_Run.py) - Create a new model version from a run. This is the canonical way to register a new model (version) from a run's MLflow model.
 * [Create_Model_Version_from_Version](notebooks/Create_Model_Version_from_Version.py)- Create a model version from another model version. Copy a version in its entirety (model and version metadata) to another version.
+* [Create_Model_Version_from_Version_Advanced](notebooks/Create_Model_Version_from_Version_Advanced.py)
 * [Create_Model_Version_from_URI](notebooks/Create_Model_Version_from_URI.py) - Create a model version from a model URI. Can be any model URI `models:/my-model/1`, `runs:/123` or other.
 
 ##### Other Notebooks
