@@ -25,4 +25,4 @@
 # MAGIC * [Set_Tag]($Set_Tag) - Set tag of registered model or model version.
 # MAGIC * [Common]($Common) - Common utilities.
 # MAGIC
-# MAGIC Last updated: 2023-07-20
+# MAGIC Last updated: 2023-07-21

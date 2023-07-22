@@ -4,6 +4,10 @@
 # COMMAND ----------
 
 import mlflow
+from mlflow.utils import databricks_utils
+_host_name = databricks_utils.get_browser_hostname()
+print(f"MLflow version: {mlflow.__version__}")
+print(f"Databricks runtime: {databricks_utils.get_databricks_runtime()}")
 
 # COMMAND ----------
 
@@ -114,31 +118,33 @@ def get_clients(src_model_name, dst_model_name):
 
 # COMMAND ----------
 
-from mlflow.utils import databricks_utils
-_host_name = databricks_utils.get_browser_hostname()
-print("_host_name:", _host_name)
-
-# COMMAND ----------
-
 def display_registered_model_uri(model_name):
-    if _host_name:
+    if _host_name: # if not running as job
         if is_unity_catalog(model_name): # is unity catalog model
             model_name = model_name.replace(".","/")
             uri = f"https://{_host_name}/explore/data/models/{model_name}"
         else:
             uri = f"https://{_host_name}/#mlflow/models/{model_name}"
-        displayHTML("""<b>Registered Model:</b> <a href="{}">{}</a>""".format(uri,uri))
+        displayHTML(f'<b>Registered Model UI:</b> <a href="{uri}">{uri}</a>')
 
 # COMMAND ----------
 
 def display_model_version_uri(model_name, version):
-    if _host_name:
+    if _host_name: # if not running as job
         if is_unity_catalog(model_name): # is unity catalog model
             model_name = model_name.replace(".","/")
             uri = f"https://{_host_name}/explore/data/models/{model_name}/version/{version}"
         else:
             uri = f"https://{_host_name}/#mlflow/models/{model_name}/versions/{version}"
-        displayHTML("""<b>Model Version:</b> <a href="{}">{}</a>""".format(uri,uri))
+        displayHTML(f'<b>Model Version UI:</b> <a href="{uri}">{uri}</a>')
+
+# COMMAND ----------
+
+def display_error(msg):
+    if _host_name: # if not running as job
+        displayHTML(f'<i><b><font color="red" size=+0 >{msg}</font></b></i>')
+    else:
+        print(msg)
 
 # COMMAND ----------
 
@@ -152,7 +158,6 @@ def _register_with_version_download_uri(client, model_name, model_version):
     return mlflow.register_model(artifact_uri, dst_model_name)
 
 # COMMAND ----------
-
 
 # Experimental
 """
