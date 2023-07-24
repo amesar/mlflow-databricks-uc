@@ -146,6 +146,12 @@ def display_error(msg):
     else:
         print(msg)
 
+def display_bold(msg):
+    if _host_name: # if not running as job
+        displayHTML(f'<i><b><font size=+0 >{msg}</font></b></i>')
+    else:
+        print(msg)
+
 # COMMAND ----------
 
 # Experimental

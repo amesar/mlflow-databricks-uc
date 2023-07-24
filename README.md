@@ -5,12 +5,12 @@
 Tools for Databricks Unity Catalog Model Registry:
 * Migrate models from Workspace Model Registry to Unity Catalog Model Registry.
 * Display and manipulate Unity Catalog models.
-* Most of these notebooks will accept either UC or non-UC models especially for model copying. 
+* Most of these notebooks will accept either UC or non-UC models in particular for model copying. 
   * For example, you can copy a UC or non-UC model version to a target UC or non-UC model version.
 
 #### Note
-* This `README.md` is meant to be used outside a workspace. 
-* If you are inside a workspace, use [notebooks/_README.py](notebooks/_README.py) in order for workspace links to work.
+* This `README.md` is meant to be used __outside__ a workspace (links are public github links). 
+* If you are __inside__ a workspace, use [notebooks/_README.py](notebooks/_README.py) in order for workspace links to work.
 
 #### Databricks Notebooks
 
@@ -18,7 +18,7 @@ Tools for Databricks Unity Catalog Model Registry:
 
 ##### Create Model Version notebooks
 * [Create_Model_Version_from_Run](notebooks/Create_Model_Version_from_Run.py) - Create a new model version from a run. This is the canonical way to register a new model (version) from a run's MLflow model.
-* [Create_Model_Version_from_Version](notebooks/Create_Model_Version_from_Version.py)- Create a model version from another model version. Copy a version in its entirety (model and version metadata) to another version.
+* [Create_Model_Version_from_Version](notebooks/Create_Model_Version_from_Version.py) - Create a model version from another model version. Copy a version in its entirety (model and version metadata) to another version.
 * [Create_Model_Version_from_Version_Advanced](notebooks/Create_Model_Version_from_Version_Advanced.py)
 * [Create_Model_Version_from_URI](notebooks/Create_Model_Version_from_URI.py) - Create a model version from a model URI. Can be any model URI `models:/my-model/1`, `runs:/123` or other.
 
@@ -35,4 +35,4 @@ Tools for Databricks Unity Catalog Model Registry:
 * Upgrade ML workflows and models to Unity Catalog - [AWS](https://docs.databricks.com/machine-learning/manage-model-lifecycle/upgrade-to-uc/index.html) - [Azure](https://learn.microsoft.com/en-us/azure/databricks/machine-learning/manage-model-lifecycle/upgrade-to-uc/)
 * Upgrade ML workflows to target models in Unity Catalog - [AWS](https://docs.databricks.com/machine-learning/manage-model-lifecycle/upgrade-to-uc/upgrade-workflows.html) - [Azure](https://learn.microsoft.com/en-us/azure/databricks/machine-learning/manage-model-lifecycle/upgrade-to-uc/upgrade-workflows)
 
-Last updated: 2023-07-21
+Last updated: 2023-07-23
