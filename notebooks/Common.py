@@ -1,10 +1,10 @@
 # Databricks notebook source
-# Common utilities
+# ==== Common utilities
 
 # COMMAND ----------
 
 import mlflow
-from mlflow.exceptions import MlflowException
+from mlflow.exceptions import MlflowException, RestException
 from mlflow.utils import databricks_utils
 
 _host_name = databricks_utils.get_browser_hostname()
@@ -56,20 +56,10 @@ def dict_as_json(dct, sort_keys=None):
 
 # COMMAND ----------
 
-import yaml
-from mlflow.utils.file_utils import TempDir
-from mlflow.artifacts import download_artifacts
+# Create a model version from a run
 
-def get_MLmodel_artifact(model_uri, artifact_path="MLmodel"):
-    with TempDir() as tmp:
-        artifact_uri = f"{model_uri}/{artifact_path}"
-        local_path = download_artifacts(artifact_uri=artifact_uri, dst_path=tmp.path())
-        with open(local_path, "r", encoding="utf-8") as f:
-            return yaml.safe_load(f)
 
 # COMMAND ----------
-
-from mlflow.exceptions import RestException
 
 def create_model_version(client,  model_name, source_uri, run_id=None):
     try:
@@ -80,13 +70,12 @@ def create_model_version(client,  model_name, source_uri, run_id=None):
 
 # COMMAND ----------
 
-# Client code
+# === Get appropriate client 
 
 # COMMAND ----------
 
 _non_uc_client = mlflow.MlflowClient(registry_uri="databricks")
 _uc_client = mlflow.MlflowClient(registry_uri="databricks-uc")
-client = _non_uc_client
 
 # COMMAND ----------
 
@@ -122,6 +111,10 @@ def get_clients(src_model_name, dst_model_name):
     print("src_client.registry_uri:", src_client._registry_uri)
     print("dst_client.registry_uri:", dst_client._registry_uri)
     return src_client, dst_client
+
+# COMMAND ----------
+
+# ==== Display functions
 
 # COMMAND ----------
 
@@ -161,44 +154,21 @@ def display_bold(msg):
 
 # COMMAND ----------
 
-# Experimental
-# Should work but fails.
-
-# MlflowException: Model version creation failed for model name: Sklearn_Wine_test version: 52 with status: FAILED_REGISTRATION and message: Failed registration. The given source path `dbfs:/databricks/mlflow-registry/3a5e115117914dd0bf09b85c4a4e48ad/models/sklearn-model` does not exist.
-
-def _register_with_version_download_uri(client, model_name, model_version):
-    artifact_uri = client.get_model_version_download_uri(model_name, model_version) 
-    return mlflow.register_model(artifact_uri, dst_model_name)
+# ==== Convert to dict
 
 # COMMAND ----------
 
-# Experimental
-"""
-Since we can't register using the value of model_version_download_uri (see above)
-jump through some hoops by:
-  1. Download the model to DBFS /tmp directory
-  2. Use this temp directory to register the model
-
-Caveats:
-  1. run_id will be not be set obviously
-  2. version "source" field will be invalid as it refers to temporary directory
-"""
-
-_tmp_download_dir = "/dbfs/tmp"
-
-def register_with_version_download_uri(client, model_name, model_version):
-    from distutils.dir_util import copy_tree
-    import tempfile
-    artifact_uri = client.get_model_version_download_uri(model_name, model_version) 
-    with tempfile.TemporaryDirectory(dir=_tmp_download_dir) as tmp_dir:
-        local_dir = download_artifacts(artifact_uri=artifact_uri, dst_path=tmp_dir)
-        copy_tree(local_dir, mk_local_path(tmp_dir))
-        print(f"Registering model '{dst_model_name}' again from version download URI '{artifact_uri}'")
-        return mlflow.register_model(mk_dbfs_path(tmp_dir), dst_model_name)
+import copy
+def registered_model_to_dict(model):
+    dct = copy.deepcopy(model.__dict__)
+    if model.latest_versions is not None:
+        dct["_latest_versions"] = [ vr.__dict__ for vr in model.latest_versions ]
+    dct.pop("_latest_version",None)
+    return dct
 
 # COMMAND ----------
 
-# NEW
+# ==== Copy Model Version
 
 # COMMAND ----------
 
@@ -248,3 +218,20 @@ def copy_model_version(src_version, dst_model_name, src_client, dst_client):
     
     mlflow.set_registry_uri(ori_registry_uri)
     return vr
+
+# COMMAND ----------
+
+# Get model version utils
+
+# COMMAND ----------
+
+import yaml
+from mlflow.utils.file_utils import TempDir
+from mlflow.artifacts import download_artifacts
+
+def get_MLmodel_artifact(model_uri, artifact_path="MLmodel"):
+    with TempDir() as tmp:
+        artifact_uri = f"{model_uri}/{artifact_path}"
+        local_path = download_artifacts(artifact_uri=artifact_uri, dst_path=tmp.path())
+        with open(local_path, "r", encoding="utf-8") as f:
+            return yaml.safe_load(f)
