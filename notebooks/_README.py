@@ -9,16 +9,16 @@
 # MAGIC * Copy and create model versions. 
 # MAGIC   * Copy a workspace model version to a UC model version.
 # MAGIC   * Copy a UC model version to another UC model version, e.g. promote model from "staging" to "prod" catalog.
-# MAGIC   * Copy a model version from an MLflow run.
+# MAGIC   * Create a model version from an MLflow run.
 # MAGIC * Tools to display and manipulate Unity Catalog models.
 # MAGIC * For the most part, notebooks accept workspace model names besides UC model names.
 # MAGIC
 # MAGIC #### Notebooks
 # MAGIC
 # MAGIC ##### Create Model Version notebooks
-# MAGIC * [Create_Model_Version_from_Version]($Create_Model_Version_from_Version) - Create a model version from another model version. 
+# MAGIC * [Copy_Model_Version]($Copy_Model_Version) - Copy one model version to another. 
 # MAGIC   * Copy a version in its entirety (model and version metadata) to another version.
-# MAGIC * [Create_Model_Version_from_Run]($Create_Model_Version_from_Run) - Create a new model version from a run. 
+# MAGIC * [Create_Model_Version]($Create_Model_Version) - Create a new model version from a run. 
 # MAGIC   * This is the standard way to register a new model version.
 # MAGIC
 # MAGIC ##### Other notebooks
@@ -33,4 +33,4 @@
 # MAGIC ##### Test notebooks
 # MAGIC * [Test notebooks]($tests/_README).
 # MAGIC
-# MAGIC Last updated: 2023-07-25
+# MAGIC Last updated: 2023-07-26

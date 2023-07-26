@@ -2,6 +2,6 @@
 # MAGIC %md ## Test notebooks
 # MAGIC
 # MAGIC **Notebooks**
-# MAGIC * [Test_Create_Model_Version_from_Version]($Test_Create_Model_Version_from_Version)
+# MAGIC * [Copy_Model_Version]($Copy_Model_Version)
 # MAGIC
-# MAGIC Last updated: 2023-07-25
+# MAGIC Last updated: 2023-07-26

@@ -8,7 +8,7 @@ Tools for Databricks Unity Catalog Model Registry.
 * Copy and create model versions. 
   * Copy a workspace model version to a UC model version.
   * Copy a UC model version to another UC model version, e.g. promote model from "staging" to "prod" catalog.
-  * Copy a model version from an MLflow run.
+  * Create a model version from an MLflow run.
 * Tools to display and manipulate Unity Catalog models.
 * For the most part, notebooks accept workspace model names besides UC model names.
 
@@ -21,9 +21,9 @@ Tools for Databricks Unity Catalog Model Registry.
 [README](notebooks/_README.py) - README for notebooks 
 
 ##### Create Model Version notebooks
-* [Create_Model_Version_from_Version](notebooks/Create_Model_Version_from_Version.py) - Create a model version from another model version. 
+* [Copy_Model_Version ](notebooks/Copy_Model_Version .py) - Creates a model version from another model version. 
   * Copy a version in its entirety (model and version metadata) to another version.
-* [Create_Model_Version_from_Run](notebooks/Create_Model_Version_from_Run.py) - Create a new model version from a run. 
+* [Create_Model_Version](notebooks/Create_Model_Version.py) - Create a new model version from a run. 
   * This is the canonical way to register a new model (version) from a run's MLflow model.
 
 ##### Other Notebooks
@@ -43,4 +43,4 @@ Tools for Databricks Unity Catalog Model Registry.
 * Upgrade ML workflows and models to Unity Catalog - [AWS](https://docs.databricks.com/machine-learning/manage-model-lifecycle/upgrade-to-uc/index.html) - [Azure](https://learn.microsoft.com/en-us/azure/databricks/machine-learning/manage-model-lifecycle/upgrade-to-uc/)
 * Upgrade ML workflows to target models in Unity Catalog - [AWS](https://docs.databricks.com/machine-learning/manage-model-lifecycle/upgrade-to-uc/upgrade-workflows.html) - [Azure](https://learn.microsoft.com/en-us/azure/databricks/machine-learning/manage-model-lifecycle/upgrade-to-uc/upgrade-workflows)
 
-Last updated: 2023-07-25
+Last updated: 2023-07-26

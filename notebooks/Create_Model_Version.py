@@ -1,7 +1,7 @@
 # Databricks notebook source
 # MAGIC %md ## Create Model Version from Run
 # MAGIC
-# MAGIC Register a new model version from a run model.
+# MAGIC Creates a new model version from a run model.
 # MAGIC
 # MAGIC Widgets:
 # MAGIC * `1. Source run ID` - example: `76031d22c5464dd99431e426b939e800`

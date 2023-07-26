@@ -1,9 +1,9 @@
 # Databricks notebook source
-# MAGIC %md ## Create Model Version from another Model Version
+# MAGIC %md ## Copy a Model Version
 # MAGIC
 # MAGIC **Overview**
-# MAGIC * Creates a new model version from another model version. 
-# MAGIC * Uses the version's registry MLflow model run and not the run's MLflow model.
+# MAGIC * Copy one model version to another. 
+# MAGIC * Uses the version's registry MLflow model run and not the source version run MLflow model.
 # MAGIC * Copies source version's metadata (description, tags and aliases) to target version.
 # MAGIC * Option to overwrite description or add a new alias.
 # MAGIC

@@ -1,5 +1,5 @@
 # Databricks notebook source
-# MAGIC %md ## Test Create_Model_Version_from_Version
+# MAGIC %md ## Test Copy_Model_Version
 # MAGIC
 # MAGIC **Legend**
 # MAGIC * WS - workspace as in workspace model name: `Sklearn_Wine`
@@ -23,16 +23,15 @@ nb_dir
 
 # COMMAND ----------
 
-nb = "Create_Model_Version_from_Version"
+nb = "Copy_Model_Version"
 notebook = f"{nb_dir}/{nb}"
 notebook
 
 # COMMAND ----------
 
-# MAGIC %md #### Init test model name names and versions
+# MAGIC %md #### Initialize test data
 # MAGIC
-# MAGIC **Notes**
-# MAGIC * configure these per your environment.
+# MAGIC * Configure these values per your environment.
 # MAGIC * TODO: Externalize with widgets
 
 # COMMAND ----------
@@ -153,6 +152,8 @@ run_test("UC to UC copy - deleted run", mk_params(ws_src_name_no_run, ws_src_ver
 # COMMAND ----------
 
 # MAGIC %md ### Test Report
+# MAGIC
+# MAGIC Note: all tests pass except test `UC to UC copy - deleted run`.
 
 # COMMAND ----------
 
