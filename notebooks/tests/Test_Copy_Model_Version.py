@@ -46,7 +46,7 @@ ws_src_name = "Sklearn_Wine_best"
 ws_src_version = "1"
 ws_dst_name = "Sklearn_Wine_test"
 
-ws_src_name_no_run = "xx"
+ws_src_name_no_run = "andre_02a_Sklearn_Train_Predict"
 ws_src_version_no_run = "11"
 
 # COMMAND ----------
