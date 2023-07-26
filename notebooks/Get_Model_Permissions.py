@@ -3,12 +3,10 @@
 # MAGIC
 # MAGIC Get registered model permissions for Unity Catalog models.
 # MAGIC
-# MAGIC Since open-source MLflow does not have registered model permissions we need to use a Databricks Unity Catalog API.
+# MAGIC Since open-source MLflow does not have registered model permissions we need to use the Databricks Unity Catalog API.
 # MAGIC
 # MAGIC **Widgets**
 # MAGIC * `Model name` - example: my_catalog.ml_models.sklearn_wine
-# MAGIC
-# MAGIC
 
 # COMMAND ----------
 
@@ -66,6 +64,7 @@ model_name = dbutils.widgets.get("Model name")
 # COMMAND ----------
 
 assert_widget(model_name, "Model name")
+assert is_unity_catalog(model_name), f"Model name '{model_name}' must be in Unity Catalog format"
 
 # COMMAND ----------
 
@@ -85,7 +84,6 @@ sdk_client
 
 # COMMAND ----------
 
-
 from databricks.sdk.service import catalog
 
 perms = sdk_client.grants.get(catalog.SecurableType.FUNCTION, model_name)
@@ -102,6 +100,4 @@ grants
 
 # COMMAND ----------
 
-import json
-jperms = json.dumps(grants.as_dict(),indent=2)
-print(jperms)
+dump_dict_as_json(grants.as_dict())

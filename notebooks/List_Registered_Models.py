@@ -3,8 +3,9 @@
 # MAGIC
 # MAGIC **Widgets**
 # MAGIC * `1. Model name` 
-# MAGIC   * UC: filter by Python `startswith()`
-# MAGIC   * non-UC: normal search_registered_models() filter
+# MAGIC   * UC: Since UC doesn't support `search_registered_models()`, we improvise:
+# MAGIC     *  with filter by Python `startswith()`
+# MAGIC   * non-UC: normal `search_registered_models()` filter
 # MAGIC * `2. Unity Catalog`
 
 # COMMAND ----------
@@ -79,4 +80,4 @@ for m in models:
 # COMMAND ----------
 
 for m in models:
-    dump_obj(m,"Registered Model")
+    dump_obj(m)

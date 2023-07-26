@@ -42,7 +42,7 @@ client = get_client(model_name)
 # COMMAND ----------
 
 version = client.get_model_version(model_name, model_version)
-dump_obj(version, "Model Version")
+dump_obj(version)
 
 # COMMAND ----------
 
@@ -55,7 +55,7 @@ display_model_version_uri(model_name, model_version)
 # COMMAND ----------
 
 run = client.get_run(version.run_id)
-dump_obj(run.info, "Run Info")
+dump_obj(run.info)
 
 # COMMAND ----------
 
