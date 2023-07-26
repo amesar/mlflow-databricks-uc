@@ -1,10 +1,10 @@
 # Databricks notebook source
 # MAGIC %md ## Get Registered Model
 # MAGIC
-# MAGIC Get registered model and its versions for either UC and non-UC models.
+# MAGIC Get registered model and its versions for either UC or non-UC models.
 # MAGIC
 # MAGIC Widgets:
-# MAGIC * `Model name` - example: my_catalog.ml_models.sklearn_wine
+# MAGIC * `Model name` - example: `my_catalog.ml_models.sklearn_wine` or `Sklearn_Wine_best`
 
 # COMMAND ----------
 
@@ -22,6 +22,10 @@ print("model_name:", model_name)
 
 # COMMAND ----------
 
+assert_widget(model_name, "Model name")
+
+# COMMAND ----------
+
 client = get_client(model_name)
 
 # COMMAND ----------
@@ -31,11 +35,11 @@ client = get_client(model_name)
 # COMMAND ----------
 
 model = client.get_registered_model(model_name)
-dump_obj(model, "Registered Model")
+dump_obj(model)
 
 # COMMAND ----------
 
-display_registered_model_uri(model_name, model_version)
+display_registered_model_uri(model_name)
 
 # COMMAND ----------
 
@@ -45,8 +49,8 @@ display_registered_model_uri(model_name, model_version)
 # COMMAND ----------
 
 if model.latest_versions:
-    for v in model.latest_versions:
-        dump_obj(v, "Latest Model Version")
+    for vr in model.latest_versions:
+        dump_obj(vr)
 
 # COMMAND ----------
 
@@ -65,5 +69,5 @@ len(versions)
 
 # COMMAND ----------
 
-for v in versions:
-    dump_obj(v, "Model Version")
+for vr in versions:
+    dump_obj(vr)
