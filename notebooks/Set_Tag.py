@@ -39,7 +39,7 @@ assert_widget(tag_key, "Missing '3. Tag key")
 
 # COMMAND ----------
 
-    display_registered_model_uri(model_name)
+display_registered_model_uri(model_name)
 
 # COMMAND ----------
 
