@@ -30,4 +30,7 @@
 # MAGIC * [Common]($Common) - Common utilities.
 # MAGIC * [Experimental notebooks]($experimental/_README).
 # MAGIC
+# MAGIC ##### Test notebooks
+# MAGIC * [Test notebooks]($tests/_README).
+# MAGIC
 # MAGIC Last updated: 2023-07-25

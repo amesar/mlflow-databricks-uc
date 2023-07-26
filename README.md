@@ -34,6 +34,9 @@ Tools for Databricks Unity Catalog Model Registry.
 * [Set_Tag](notebooks/Set_Tag.py) - Set tag of registered model or model version.
 * [Experimental notebooks](experimental/_README.py).
 
+##### Test Notebooks
+* [Test notebooks](tests).
+
 #### Databricks Documentation
 
 * Manage model lifecycle in Unity Catalog - [AWS](https://docs.databricks.com/machine-learning/manage-model-lifecycle/index.html) - [Azure](https://learn.microsoft.com/en-us/azure/databricks/machine-learning/manage-model-lifecycle/)
