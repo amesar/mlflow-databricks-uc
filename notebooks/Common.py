@@ -4,7 +4,9 @@
 # COMMAND ----------
 
 import mlflow
+from mlflow.exceptions import MlflowException
 from mlflow.utils import databricks_utils
+
 _host_name = databricks_utils.get_browser_hostname()
 print(f"MLflow version: {mlflow.__version__}")
 print(f"Databricks runtime: {databricks_utils.get_databricks_runtime()}")
@@ -25,7 +27,8 @@ def assert_widget(value, name):
 
 # COMMAND ----------
 
-def dump_obj(obj, title="Object"):
+def dump_obj(obj, title=None):
+    title = title or type(obj).__name__
     print(f"{title}:")
     if obj:
         for k,v in obj.__dict__.items():
@@ -43,9 +46,13 @@ def dump_keys(dct, title="Dict"):
         for k in dct.keys():
             print(f"  {k}")
 
-def dump_json(dct, sort_keys=None):
+def dump_dict_as_json(dct, sort_keys=None):
     import json
     print(json.dumps(dct, sort_keys=sort_keys, indent=2))
+
+def dict_as_json(dct, sort_keys=None):
+    import json
+    return json.dumps(dct, sort_keys=sort_keys, indent=2)
 
 # COMMAND ----------
 
@@ -83,8 +90,8 @@ client = _non_uc_client
 
 # COMMAND ----------
 
-def is_unity_catalog(model_name):
-    return "." in model_name
+def is_unity_catalog(name):
+    return len(name.split(".")) == 3
     
 def _get_client(model_name):
     return _uc_client if is_unity_catalog(model_name) else _non_uc_client
@@ -188,3 +195,56 @@ def register_with_version_download_uri(client, model_name, model_version):
         copy_tree(local_dir, mk_local_path(tmp_dir))
         print(f"Registering model '{dst_model_name}' again from version download URI '{artifact_uri}'")
         return mlflow.register_model(mk_dbfs_path(tmp_dir), dst_model_name)
+
+# COMMAND ----------
+
+# NEW
+
+# COMMAND ----------
+
+def _copy_model_version(src_version, dst_model_name, src_client, dst_client, use_download_uri=False):
+    try:
+        dst_client.create_registered_model(dst_model_name)
+    except MlflowException as e:
+        if e.error_code != "RESOURCE_ALREADY_EXISTS":
+            print(f"ERROR: error_code: {e.error_code}")
+            raise 
+        
+    if use_download_uri:
+        src_uri = src_client.get_model_version_download_uri(src_version.name, src_version.version)
+    else:
+        src_uri = f"models:/{src_version.name}/{src_version.version}"
+    print(f"Creating new version for model '{dst_model_name}' from '{src_uri}' with run_id '{src_version.run_id}'")
+    
+    try:
+        return dst_client.create_model_version(source=src_uri, name=dst_model_name, run_id=src_version.run_id)
+    except MlflowException as e:
+        print(f"ERROR: error_code: {e.error_code}")
+        raise 
+
+# COMMAND ----------
+
+def copy_model_version(src_version, dst_model_name, src_client, dst_client):
+    """
+    Create model version from the source version's registry MLflow model.
+    """
+    src_is_uc = is_unity_catalog(src_version.name)
+    dst_is_uc = is_unity_catalog(dst_model_name)
+    ori_registry_uri = mlflow.get_registry_uri()
+    mlflow.set_registry_uri(dst_client._registry_uri) # NOTE: If not set, fails for UC to UC copy
+
+    # UC to UC
+    if src_is_uc and dst_is_uc:
+        vr= _copy_model_version(src_version, dst_model_name, src_client, dst_client)
+
+    # non-UC to UC
+    elif not src_is_uc and dst_is_uc:
+        vr = _copy_model_version(src_version, dst_model_name, src_client, dst_client, use_download_uri=True)
+   
+    # non-UC to non-UC - fails
+    else:
+        print(f"WARNING: Creating version from run MLflow model instead of registry MLflow model due to non-UC to non-UC bug.")
+        vr = create_model_version(dst_client, dst_model_name, src_version.source, src_version.run_id)
+    
+    mlflow.set_registry_uri(ori_registry_uri)
+    return vr

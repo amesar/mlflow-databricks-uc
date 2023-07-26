@@ -3,7 +3,7 @@
 # MAGIC
 # MAGIC **Overview**
 # MAGIC * Creates a new model version from another model version. 
-# MAGIC * Gets the model to copy from the version's run. Note that the run must exist.
+# MAGIC * Uses the version's registry MLflow model run and not the run's MLflow model.
 # MAGIC * Copies source version's metadata (description, tags and aliases) to target version.
 # MAGIC * Option to overwrite description or add a new alias.
 # MAGIC
@@ -79,25 +79,8 @@ print("aliases:",aliases)
 
 # COMMAND ----------
 
-# MAGIC %md **If run does not exist**
-# MAGIC
-# MAGIC error_code: INTERNAL_ERROR
-# MAGIC
-# MAGIC MlflowException: Model version creation failed for model name: Sklearn_Wine_test version: 16 with status: FAILED_REGISTRATION and message: Failed registration. The given source path `dbfs:/databricks/mlflow-tracking/e090757fcb8f49cb9822f65f2fe7ed91/3c0b2decc41c4dc0becd3d60bc814a4d/artifacts/model` does not exist.
-
-# COMMAND ----------
-
-try:
-    dst_version = create_model_version(dst_client, 
-        dst_model_name, 
-        src_version.source, 
-        src_version.run_id
-    )
-except mlflow.MlflowException as e: # Run doesn't exist
-    print(f"ERROR: error_code: {e.error_code}\n") # error_code: INTERNAL_ERROR
-    raise e
-
-dst_version
+dst_version = copy_model_version(src_version, dst_model_name, src_client, dst_client)
+dump_obj(dst_version)
 
 # COMMAND ----------
 
@@ -132,3 +115,22 @@ dump_obj(dst_version)
 # COMMAND ----------
 
 display_model_version_uri(dst_model_name, dst_version.version)
+
+# COMMAND ----------
+
+# MAGIC %md ### Result
+
+# COMMAND ----------
+
+keys = [ "name", "version", "run_id", "description", "aliases", "tags" ]
+def subset(obj, keys):
+    return { k[1:]:v for k,v in obj.__dict__.items() if k[1:] in keys }
+result = {
+    "src_model_version":  subset(src_version, keys),
+    "dst_model_version":  subset(dst_version, keys)
+}
+dump_dict_as_json(result)
+
+# COMMAND ----------
+
+dbutils.notebook.exit(dict_as_json(result))
