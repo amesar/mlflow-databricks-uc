@@ -13,6 +13,12 @@
 # MAGIC * `3. New model name` 
 # MAGIC * `4. Alias` - alias to append to source version aliases
 # MAGIC * `5. Description` - replace source version description if specified
+# MAGIC * `6. Set model version lineage` - Save the following source version tags:
+# MAGIC   * `_mlflow_lineage.source_model_version.name`
+# MAGIC   * `_mlflow_lineage.source_model_version.version`
+# MAGIC   * `_mlflow_lineage.source_model_version.copy_user`
+# MAGIC   * `_mlflow_lineage.source_model_version.copy_time` - milliseconds of copy time
+# MAGIC   * `_mlflow_lineage.source_model_version.copy_time_nice` - ibid but human-friendly
 
 # COMMAND ----------
 
@@ -39,11 +45,15 @@ alias = dbutils.widgets.get("4. Alias")
 dbutils.widgets.text("5. Description", "")
 description = dbutils.widgets.get("5. Description")
 
+dbutils.widgets.dropdown("6. Set model version lineage", "no", ["yes","no"])
+set_model_version_lineage = dbutils.widgets.get("6. Set model version lineage") == "yes"
+
 print("src_model_name:", src_model_name)
 print("src_model_version:", src_model_version)
 print("dst_model_name:", src_model_name)
 print("alias:", alias)
 print("description:", description)
+print("set_model_version_lineage:", set_model_version_lineage)
 
 # COMMAND ----------
 
@@ -88,8 +98,16 @@ dump_obj(dst_version)
 
 # COMMAND ----------
 
+# MAGIC %md ##### Set model version description
+
+# COMMAND ----------
+
 if description:
     dst_client.update_model_version(dst_model_name, dst_version.version, description)
+
+# COMMAND ----------
+
+# MAGIC %md ##### Set model version tags
 
 # COMMAND ----------
 
@@ -99,9 +117,23 @@ for k,v in src_version.tags.items():
 
 # COMMAND ----------
 
+# MAGIC %md ##### Set model version aliases
+
+# COMMAND ----------
+
 for alias in aliases:
     print(f"Setting alias '{alias}'")
     dst_client.set_registered_model_alias(dst_model_name, alias, dst_version.version)
+
+# COMMAND ----------
+
+# MAGIC %md ##### Set model version lineage tags
+
+# COMMAND ----------
+
+if set_model_version_lineage: ##
+    print(f"Setting source model lineage tags '{TAG_LINEAGE_BASE}.*'")
+    copy_model_version_lineage(dst_client, src_version, dst_version)
 
 # COMMAND ----------
 
@@ -111,6 +143,10 @@ for alias in aliases:
 
 dst_version = dst_client.get_model_version(dst_model_name, dst_version.version)
 dump_obj(dst_version)
+
+# COMMAND ----------
+
+dump_dict_as_json(dst_version.tags)
 
 # COMMAND ----------
 

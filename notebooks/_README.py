@@ -11,7 +11,7 @@
 # MAGIC   * Copy a UC model version to another UC model version, e.g. promote model from "staging" to "prod" catalog.
 # MAGIC   * Create a model version from an MLflow run.
 # MAGIC * Tools to display and manipulate Unity Catalog models.
-# MAGIC * For the most part, notebooks accept workspace model names besides UC model names.
+# MAGIC * For the most part, notebooks accept workspace model names as well UC model names.
 # MAGIC
 # MAGIC #### Notebooks
 # MAGIC
@@ -33,4 +33,4 @@
 # MAGIC ##### Test notebooks
 # MAGIC * [Test notebooks]($tests/_README).
 # MAGIC
-# MAGIC Last updated: 2023-07-26
+# MAGIC Last updated: 2023-08-03

@@ -71,3 +71,16 @@ len(versions)
 
 for vr in versions:
     dump_obj(vr)
+
+# COMMAND ----------
+
+# MAGIC %md ### Result
+
+# COMMAND ----------
+
+dct = registered_model_to_dict(model)
+dct
+
+# COMMAND ----------
+
+dbutils.notebook.exit(dict_as_json(dct))

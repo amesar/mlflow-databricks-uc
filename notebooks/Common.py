@@ -235,3 +235,46 @@ def get_MLmodel_artifact(model_uri, artifact_path="MLmodel"):
         local_path = download_artifacts(artifact_uri=artifact_uri, dst_path=tmp.path())
         with open(local_path, "r", encoding="utf-8") as f:
             return yaml.safe_load(f)
+
+# COMMAND ----------
+
+# == Source model lineage
+
+# COMMAND ----------
+
+current_user = dbutils.notebook.entry_point.getDbutils().notebook().getContext().tags().get("user").get()
+
+# COMMAND ----------
+
+TAG_LINEAGE_BASE = "_mlflow_lineage.source_model_version"
+TAG_SOURCE_MODEL_NAME = f"{TAG_LINEAGE_BASE}.name"
+TAG_SOURCE_MODEL_VERSION = f"{TAG_LINEAGE_BASE}.version"
+TAG_SOURCE_MODEL_COPY_USER = f"{TAG_LINEAGE_BASE}.user"
+TAG_SOURCE_MODEL_COPY_TIME = f"{TAG_LINEAGE_BASE}.copy_time"
+TAG_SOURCE_MODEL_COPY_TIME_NICE = f"{TAG_LINEAGE_BASE}.copy_time_nice"
+
+# COMMAND ----------
+
+import time
+utc_now_seconds = time.time()
+utc_now_millis = round(utc_now_seconds*1000)
+utc_now_nice = time.strftime(TS_FORMAT, time.gmtime(utc_now_seconds))
+#utc_now_seconds, utc_now_nice
+
+# COMMAND ----------
+
+def copy_model_version_lineage(dst_client, src_version, dst_version):
+    dst_client.set_model_version_tag(dst_version.name, dst_version.version, 
+        TAG_SOURCE_MODEL_NAME, src_version.name)
+    dst_client.set_model_version_tag(dst_version.name, dst_version.version, 
+        TAG_SOURCE_MODEL_VERSION, src_version.version)
+    dst_client.set_model_version_tag(dst_version.name, dst_version.version, 
+        TAG_SOURCE_MODEL_COPY_USER, current_user)
+    dst_client.set_model_version_tag(dst_version.name, dst_version.version, 
+        TAG_SOURCE_MODEL_COPY_TIME, utc_now_millis)
+    dst_client.set_model_version_tag(dst_version.name, dst_version.version, 
+        TAG_SOURCE_MODEL_COPY_TIME_NICE, utc_now_nice)
+
+# COMMAND ----------
+
+
