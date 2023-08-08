@@ -256,6 +256,7 @@ TAG_SOURCE_MODEL_COPY_TIME_NICE = f"{TAG_LINEAGE_BASE}.copy_time_nice"
 # COMMAND ----------
 
 import time
+TS_FORMAT = "%Y-%m-%d %H:%M:%S"
 utc_now_seconds = time.time()
 utc_now_millis = round(utc_now_seconds*1000)
 utc_now_nice = time.strftime(TS_FORMAT, time.gmtime(utc_now_seconds))
