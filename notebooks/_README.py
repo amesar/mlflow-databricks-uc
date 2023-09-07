@@ -33,4 +33,4 @@
 # MAGIC ##### Test notebooks
 # MAGIC * [Test notebooks]($tests/_README).
 # MAGIC
-# MAGIC Last updated: 2023-08-03
+# MAGIC Last updated: 2023-09-07

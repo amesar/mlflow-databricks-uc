@@ -1,12 +1,12 @@
 # Databricks notebook source
 # MAGIC %md ## Create Model Version from URI
 # MAGIC
-# MAGIC **Overview**
+# MAGIC ##### Overview
 # MAGIC * Creates a new model version from model URI. 
 # MAGIC * Copies source version's metadata (description, tags and aliases) to target version.
 # MAGIC * Option to overwrite description or add a new alias.
 # MAGIC
-# MAGIC **Widgets**
+# MAGIC ##### Widgets
 # MAGIC * `2. Source Model URI` - the model to register. Examples:
 # MAGIC   * Runs URI: `runs:/76031d22c5464dd99431e426b939e800/model`
 # MAGIC   * Models URI: `models:/andre_catalog.ml_models2.sklearn_wine_best/1`
@@ -15,6 +15,13 @@
 # MAGIC * `3. New model name` 
 # MAGIC * `4. Alias` - alias to append to source version aliases
 # MAGIC * `5. Description` - replace source version description if specified
+# MAGIC
+# MAGIC ##### Error
+# MAGIC
+# MAGIC models:/Sklearn_Wine_test/1
+# MAGIC ```
+# MAGIC RestException: INVALID_PARAMETER_VALUE: Got an invalid source 'models:/Sklearn_Wine_test/1'. Only DBFS locations are currently supported.
+# MAGIC ```
 
 # COMMAND ----------
 
@@ -60,7 +67,15 @@ dst_client = get_client(dst_model_name)
 
 # COMMAND ----------
 
-# MAGIC %md **If run does not exist**
+# MAGIC %md ##### If run does not exist
+# MAGIC
+# MAGIC ###### Error 1 
+# MAGIC
+# MAGIC ERROR: error_code: INVALID_PARAMETER_VALUE
+# MAGIC
+# MAGIC RestException: INVALID_PARAMETER_VALUE: Got an invalid source 'models:/Sklearn_Wine_test/1'. Only DBFS locations are currently supported.
+# MAGIC
+# MAGIC ###### Error 2
 # MAGIC
 # MAGIC error_code: INTERNAL_ERROR
 # MAGIC
