@@ -187,7 +187,18 @@ def _copy_model_version(src_version, dst_model_name, src_client, dst_client, use
     print(f"Creating new version for model '{dst_model_name}' from '{src_uri}' with run_id '{src_version.run_id}'")
     
     try:
-        return dst_client.create_model_version(source=src_uri, name=dst_model_name, run_id=src_version.run_id)
+        dst_version = dst_client.create_model_version(
+            source = src_uri, 
+            name = dst_model_name, 
+            run_id = src_version.run_id,
+            tags = src_version.tags,
+            description = src_version.description
+        )
+        for alias in src_version.aliases:
+            print(f"Setting alias '{alias}'") # XX DEBUG
+            dst_client.set_registered_model_alias(dst_version.name, alias, dst_version.version)
+        return dst_version
+
     except MlflowException as e:
         print(f"ERROR: error_code: {e.error_code}")
         raise 
