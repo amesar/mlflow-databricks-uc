@@ -34,4 +34,7 @@
 # MAGIC ##### Test notebooks
 # MAGIC * [Test notebooks]($tests/_README).
 # MAGIC
-# MAGIC Last updated: 2023-09-18
+# MAGIC #### Git Repo
+# MAGIC * https://github.com/amesar/mlflow-reports
+# MAGIC
+# MAGIC Last updated: 2023-10-02
